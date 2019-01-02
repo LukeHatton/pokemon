@@ -20,16 +20,14 @@
                     url: "http://localhost:8080/pokemon/capture/calculate/capture-rate",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
-                    data: {
-                        maxHealth: maxHealth,
-                        currentHealth: currentHealth,
-                        environment: environment,
-                        ball: ball,
-                        captureDegree: captureDegree,
-                        expectation: expectation
-                    },
+                    data: '{"maxHealth":' + maxHealth +
+                        ',"currentHealth":' + currentHealth +
+                        ',"environment":' + environment +
+                        ',"ball":' + ball +
+                        ',"captureDegree":' + captureDegree +
+                        ',"expectation":' + expectation + '}',
                     success: function (data) {
-                        alert("成功!");
+                        alert("每次掷球捕获率:" + data.capturePercent + ",期望掷球次数:" + data.expectation);
                     },
                     error: function (data) {
                         alert("失败!");
