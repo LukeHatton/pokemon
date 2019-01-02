@@ -31,7 +31,7 @@ public class CaptureController {
         if (capture != null) {
             double captureRate = CalculateUtil.calculateCaptureRate(capture);
             String percent = CalculateUtil.showInPercent(captureRate, 2);
-            int expectation = CalculateUtil.calculateCaptureExpectation(captureRate, 0.8);
+            int expectation = CalculateUtil.calculateCaptureExpectation(captureRate, capture.getExpectation());
             Map<String, Object> valueMap = ReturnValueEnum.SUCCESS.getReturnValueMap();
             valueMap.put("capturePercent", percent);
             valueMap.put("expectation", expectation);
