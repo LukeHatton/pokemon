@@ -1,0 +1,17 @@
+#项目服务器启动配置
+server:
+  port: 8080
+  address: 127.0.0.1
+  servlet:
+    session:
+      timeout: 30s
+    context-path: /pokemon
+
+# devTools支持.启用重启功能,但资源文件改变时不重启
+spring:
+  devtools:
+    restart:
+      enabled: true
+      exclude: static/**,templates/**
+  banner:
+    location: static/banner.txt

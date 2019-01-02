@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>捕获率计算</title>
+</head>
+<script type="text/javascript" src="/pokemon/scripts/jquery-3.3.1.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#btnSubmit").click(
+            function () {
+                var maxHealth = $("#maxHealth").val();
+                var currentHealth = $("#currentHealth").val();
+                var environment = $("#environment").val();
+                var ball = $("#ball").val();
+                var captureDegree = $("#captureDegree").val();
+                var expectation = $("#expectation").val();
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8080/pokemon/capture/calculate/capture-rate",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    data: {
+                        maxHealth: maxHealth,
+                        currentHealth: currentHealth,
+                        environment: environment,
+                        ball: ball,
+                        captureDegree: captureDegree,
+                        expectation: expectation
+                    },
+                    success: function (data) {
+                        alert("成功!");
+                    },
+                    error: function (data) {
+                        alert("失败!");
+                    }
+                });
+            });
+
+    });
+
+
+    //创建json数组
+    function createArray() {
+        var jsonarray = [];
+        var fanganid = $("#selectTitleid").val();
+        var $goodsurl = $(".goodsurl");
+        var $isadd = $(".isadd");
+        var $review = $(".inputtextarea");
+        var $isclear = $(".isclear");
+
+        $.each($goodsurl, function (n) {
+            var goodsurl = $($goodsurl[n]).val();
+            var isadd = $($isadd[n]).val();
+            var review = $($review[n]).val();
+            var isclear = $($isclear[n]).val();
+            var obj = createObj(goodsurl, isadd, fanganid, review, isclear);
+            jsonarray.push(obj);
+        });
+        return jsonarray;
+    }
+
+    //创建json对象
+    function createObj(urlval, isaddval, faidval, reviewval, isclearval) {
+        return {
+            url: urlval,
+            isadd: isaddval,
+            faid: faidval,
+            review: reviewval,
+            isclear: isclearval
+        }
+    }
+</script>
+<body>
+<p>
+    <label>
+        最大健康:
+        <input id="maxHealth" placeholder="220" type="number" name="maxHealth" value="220"/>
+    </label>
+</p>
+<p>
+    <label>
+        当前健康:
+        <input id="currentHealth" placeholder="220" type="number" name="currentHealth" value="220"/>
+    </label>
+</p>
+<p>
+    <label>
+        状态和环境修正:
+        <input id="environment" placeholder="1.0" type="number" name="environment" value="1.0"/>
+    </label>
+</p>
+<p>
+    <label>
+        精灵球修正:
+        <input id="ball" placeholder="1.0" type="number" name="ball" value="1.0"/>
+    </label>
+</p>
+<p>
+    <label>
+        种族捕获度
+        <input id="captureDegree" placeholder="45" type="number" name="captureDegree" value="45"/>
+    </label>
+</p>
+<p>
+    <label>
+        n次掷球期望捕获率:
+        <input id="expectation" placeholder="0.8" type="number" name="expectation" value="0.8"/>
+    </label>
+</p>
+<button id="btnSubmit">提交</button>
+</body>
+</html>
