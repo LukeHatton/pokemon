@@ -23,6 +23,7 @@ public class CalculateUtil {
         Double environment = dto.getEnvironment();
         Double ball = dto.getBall();
         Double captureDegree = dto.getCaptureDegree();
+        //B=((3∗最大HP−2∗当前HP)∗状态修正∗捕获修正)/(3∗最大HP)∗种族捕获度
         return (3 * maxHealth - 2 * currentHealth) * environment * ball * captureDegree / (3 * maxHealth);
     }
 
@@ -33,6 +34,7 @@ public class CalculateUtil {
      * @return value of G
      */
     public static double calculateG(double B) {
+        //G=65535/(((255/B))^(3/16) )
         return 65535.0 / Math.pow((255 / B), 3.0 / 16);
     }
 
@@ -78,7 +80,6 @@ public class CalculateUtil {
      * @return percent represents for the value
      */
     public static String showInPercent(double value, int precision) {
-        String substring = ((Double) (value * 100)).toString().substring(0, 2 + precision);
-        return substring + "%";
+        return ((Double) (value * 100)).toString().substring(0, 2 + precision)+"%";
     }
 }
