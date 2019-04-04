@@ -52,8 +52,8 @@ public class SimpleTest {
 
     @Test
     public void test03() throws IOException {
-        String utl = "https://wiki.52poke.com/wiki/%E7%A7%8D%E6%97%8F%E5%80%BC%E5%88%97%E8%A1%A8%EF%BC%88%E7%AC%AC%E4%B8%83%E4%B8%96%E4%BB%A3%EF%BC%89";
-        HtmlGetterUtil.getArticleListFromUrl();
+        String url = "https://wiki.52poke.com/wiki/%E7%A7%8D%E6%97%8F%E5%80%BC%E5%88%97%E8%A1%A8%EF%BC%88%E7%AC%AC%E4%B8%83%E4%B8%96%E4%BB%A3%EF%BC%89";
+        HtmlGetterUtil.getArticleListFromUrl(url);
     }
 
     @Test
