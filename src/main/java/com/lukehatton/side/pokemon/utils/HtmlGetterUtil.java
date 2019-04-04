@@ -26,24 +26,20 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class HtmlGetterUtil {
 
-    private static String sourceUrl = "https://wiki.52poke.com/wiki/%E7%A7%8D%E6%97%8F%E5%80%BC%E5%88%97%E8%A1%A8%EF%BC%88%E7%AC%AC%E4%B8%83%E4%B8%96%E4%BB%A3%EF%BC%89";
-
     private static String siteUrl = "https://wiki.52poke.com";
 
     private static List<PocketMonster> monsterList = new ArrayList<>();
 
     private static String FILE_PATH = "D:\\image\\raceList.json";
 
-    private static String blogName = "guoxiaolongonly";
-
     /**
      * 获取精灵列表
      */
-    public static void getArticleListFromUrl() throws IOException {
+    public static void getArticleListFromUrl(String url) throws IOException {
         Document doc;
 
         //获取页面文档
-        doc = Jsoup.connect(sourceUrl).userAgent("Chrome/71.0.3578.98").timeout(16000).get();
+        doc = Jsoup.connect(url).userAgent("Chrome/71.0.3578.98").timeout(16000).get();
         if (doc == null) {
             throw new IOException("读取的url错误!");
         }
@@ -67,12 +63,10 @@ public class HtmlGetterUtil {
          * 依次获取每个元素的链接页面,获取需要的内容
          */
         results.forEach(e -> {
-            String s = e.toString();
             //可以获取id,name,raceValue
             String text = e.text();
             String[] pokemon = text.split(" ");
             //获取链接
-            Elements children = e.children();
             Elements select = e.select("a[href]");
             String href = select.get(0).attr("href");
             //使用该链接获取详情页面文档
@@ -108,12 +102,7 @@ public class HtmlGetterUtil {
                 //每加入150个元素,就调用一次json写入方法
                 if (count.get() - temp.get() == 150) {
                     temp.set(count.get());
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            savePokemonJson(monsterList,FILE_PATH);
-                        }
-                    }).start();
+                    new Thread(() -> savePokemonJson(monsterList,FILE_PATH)).start();
                 }
                 System.out.println("列表元素" + count + "添加完成");
 
